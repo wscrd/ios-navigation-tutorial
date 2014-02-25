@@ -9,18 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @interface NavigationStore : NSObject{
-    NSMutableArray *lista;
     NSMutableArray *nomes;
+    NSMutableDictionary *objetos;
     int posicao;
 }
 
-
-@property NSMutableArray *lista;
+@property NSMutableDictionary *objetos;
 @property NSMutableArray *nomes;
 @property int posicao;
 + (NavigationStore *) sharedInstancia;
 
-- (int) atualiza;
+- (int) atualiza:(bool)estado;
 
 - (id)initX;
 

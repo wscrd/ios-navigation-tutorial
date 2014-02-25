@@ -10,9 +10,9 @@
 
 @implementation NavigationStore
 
-@synthesize lista;
 @synthesize nomes;
 @synthesize posicao;
+@synthesize objetos;
 
 +(NavigationStore *)sharedInstancia {
     static NavigationStore *instancia = nil;
@@ -29,18 +29,22 @@
 - (id)initX {
     self = [super init];
     if (self) {
-        lista = [[NSMutableArray alloc] init];
         nomes = [[NSMutableArray alloc] init];
+        
         posicao = 0;
-        [nomes addObject:@"Alavanca"];
-        [nomes addObject:@"Baleia"];
-        [nomes addObject:@"Cadeira"];
+//        [nomes addObject:@"Alavanca"];
+//        [nomes addObject:@"Baleia"];
+//        [nomes addObject:@"Cadeira"];
     }
     return self;
 }
 
-- (int)atualiza {
-    posicao++;
+- (int)atualiza: (bool) estado {
+    if (estado) {
+        posicao ++;
+    }
+    else
+        posicao--;
     return posicao;
 }
 

@@ -38,7 +38,7 @@
                              initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(proximo)];
     self.navigationItem.rightBarButtonItem = prox;
 	// Do any additional setup after loading the view.
-    [instancia atualiza];
+    [instancia atualiza: true];
 }
 
 - (void)didReceiveMemoryWarning
