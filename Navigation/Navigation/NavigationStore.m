@@ -75,6 +75,7 @@
         [aux addObject:palavra];
         [aux addObject:imagem];
         NSString *letra = [[NSString alloc] initWithFormat:@"%c", [palavra characterAtIndex:0] ] ;
+        //NSString *letra = [[[NSString alloc] substringToIndex:1] uppercaseString];
         [objetos setObject:aux forKey:letra];
         //NSLog(@"%@", [objetos objectForKey:letra]);
     }

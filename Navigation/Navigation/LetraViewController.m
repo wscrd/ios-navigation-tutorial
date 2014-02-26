@@ -34,8 +34,9 @@
     //self.title = [[NSString alloc] initWithFormat:@"%c", (65 + instancia.posicao)];
    // NSArray *chaves = [[instancia objetos] allKeys];
     NSArray *chaves = [[[NavigationStore sharedInstancia] objetos] allKeys];
-    NSArray *chavesOrdenadas = [chaves sortedArrayUsingComparator:^NSComparisonResult(id a, id b) { NSString *chave1 = (NSString *) a; NSString*chave2 = (NSString *)b; return [chave1 compare:chave2]; }];
+    //NSArray *chavesOrdenadas = [chaves sortedArrayUsingComparator:^NSComparisonResult(id a, id b) { NSString *chave1 = (NSString *) a; NSString*chave2 = (NSString *)b; return [chave1 compare:chave2]; }];
     NSLog(@"%@", chaves);
+    NSArray *chavesOrdenadas = [chaves sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     self.title = [chavesOrdenadas objectAtIndex:instancia.posicao];
     //self.imagem.image = [UIImage imageNamed:@"alavanca"];
     self.imagem.image = [[[[NavigationStore sharedInstancia] objetos] objectForKey:self.title] objectAtIndex:1];
@@ -44,16 +45,20 @@
     UIBarButtonItem *prox = [[UIBarButtonItem alloc]
                              initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(proximo)];
     self.navigationItem.rightBarButtonItem = prox;
-    UIBarButtonItem *ant = [[UIBarButtonItem alloc]
-                             initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(anterior)];
-    self.navigationItem.leftBarButtonItem = ant;
-    NSMutableArray *atual = [[NSMutableArray alloc] init];
-    [atual addObject:self];
-    self.navigationController.viewControllers = atual;
+    //UIBarButtonItem *ant = [[UIBarButtonItem alloc]
+                         //    initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(anterior)];
+    //self.navigationItem.leftBarButtonItem = ant;
+//    NSMutableArray *atual = [[NSMutableArray alloc] init];
+//    [atual addObject:self];
+//    self.navigationController.viewControllers = atual;
 	// Do any additional setup after loading the view.
     
 }
 
+
+- (void)dealloc {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
