@@ -28,6 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     NavigationStore *instancia;
     instancia = [NavigationStore sharedInstancia];
     self.title = [[NSString alloc] initWithFormat:@"%c", (65 + instancia.posicao)];
@@ -37,8 +38,14 @@
     UIBarButtonItem *prox = [[UIBarButtonItem alloc]
                              initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(proximo)];
     self.navigationItem.rightBarButtonItem = prox;
+    UIBarButtonItem *ant = [[UIBarButtonItem alloc]
+                             initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(anterior)];
+    self.navigationItem.leftBarButtonItem = ant;
+    NSMutableArray *atual = [[NSMutableArray alloc] init];
+    [atual addObject:self];
+    self.navigationController.viewControllers = atual;
 	// Do any additional setup after loading the view.
-    [instancia atualiza: true];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,8 +55,19 @@
 }
 
 - (void) proximo {
+    NSLog(@"Inicializando");
+    NavigationStore *instancia = [NavigationStore sharedInstancia];
+    [instancia atualiza: true];
     LetraViewController *prox = [[LetraViewController alloc] initWithNibName:@"LetraView" bundle:nil];
     [self.navigationController pushViewController:prox animated:YES];
+}
+
+- (void) anterior {
+    NavigationStore *instancia = [NavigationStore sharedInstancia];
+    [instancia atualiza: false];
+    LetraViewController *prox = [[LetraViewController alloc] initWithNibName:@"LetraView" bundle:nil];
+    [self.navigationController pushViewController:prox animated:YES];
+    
 }
 
 @end

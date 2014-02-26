@@ -19,7 +19,7 @@
 @property int posicao;
 + (NavigationStore *) sharedInstancia;
 
-- (int) atualiza:(bool)estado;
+- (int)atualiza: (bool) estado;
 
 - (id)initX;
 
