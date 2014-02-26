@@ -30,7 +30,7 @@
     self = [super init];
     if (self) {
         nomes = [[NSMutableArray alloc] init];
-        
+        objetos = [[NSMutableDictionary alloc] init];
         posicao = 0;
         
         [nomes addObject:@"Alavanca"];
@@ -47,7 +47,7 @@
         [nomes addObject:@"Livro"];
         [nomes addObject:@"Mola"];
         [nomes addObject:@"Navio"];
-        [nomes addObject:@"Óculos"];
+        [nomes addObject:@"Ovo"];
         [nomes addObject:@"Prato"];
         [nomes addObject:@"Quadrado"];
         [nomes addObject:@"Relógio"];
@@ -59,15 +59,24 @@
         [nomes addObject:@"Xícara"];
         [nomes addObject:@"Yeti"];
         [nomes addObject:@"Zarabatana"];
+        [self inicializaDicionario];
     }
     return self;
 }
 
 - (NSMutableDictionary *) inicializaDicionario {
+    NSLog(@"%@", objetos);
     for (NSString *palavra in nomes) {
-        NSMutableArray *aux = [[NSMutableArray alloc] initWithCapacity:2];
+        NSMutableArray *aux = [[NSMutableArray alloc] init];
         UIImage *imagem = [UIImage imageNamed:palavra];
-        
+        if (!imagem) {
+            imagem = [UIImage imageNamed:@"alavanca"];
+        }
+        [aux addObject:palavra];
+        [aux addObject:imagem];
+        NSString *letra = [[NSString alloc] initWithFormat:@"%c", [palavra characterAtIndex:0] ] ;
+        [objetos setObject:aux forKey:letra];
+        //NSLog(@"%@", [objetos objectForKey:letra]);
     }
     return objetos;
 }
@@ -76,9 +85,16 @@
     
     if (estado) {
         posicao ++;
+        if (posicao == 26) {
+            posicao = 0;
+        }
     }
-    else
+    else{
         posicao--;
+        if (posicao == -1) {
+            posicao = 25;
+        }
+    }
     return posicao;
 }
 

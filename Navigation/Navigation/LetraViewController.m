@@ -31,9 +31,15 @@
     
     NavigationStore *instancia;
     instancia = [NavigationStore sharedInstancia];
-    self.title = [[NSString alloc] initWithFormat:@"%c", (65 + instancia.posicao)];
-    self.imagem.image = [UIImage imageNamed:@"alavanca"];
-    self.nome.text = @"Alavanca";
+    //self.title = [[NSString alloc] initWithFormat:@"%c", (65 + instancia.posicao)];
+   // NSArray *chaves = [[instancia objetos] allKeys];
+    NSArray *chaves = [[[NavigationStore sharedInstancia] objetos] allKeys];
+    NSArray *chavesOrdenadas = [chaves sortedArrayUsingComparator:^NSComparisonResult(id a, id b) { NSString *chave1 = (NSString *) a; NSString*chave2 = (NSString *)b; return [chave1 compare:chave2]; }];
+    NSLog(@"%@", chaves);
+    self.title = [chavesOrdenadas objectAtIndex:instancia.posicao];
+    //self.imagem.image = [UIImage imageNamed:@"alavanca"];
+    self.imagem.image = [[[[NavigationStore sharedInstancia] objetos] objectForKey:self.title] objectAtIndex:1];
+    self.nome.text = [[[[NavigationStore sharedInstancia] objetos] objectForKey:self.title] objectAtIndex:0];
     [self.nome sizeToFit];
     UIBarButtonItem *prox = [[UIBarButtonItem alloc]
                              initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(proximo)];
